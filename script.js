@@ -19,100 +19,82 @@ var number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 //Special Characters
 var specials = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "?", "-", ".", "~", "/", "=", ",", "|"];
 
-// Provided by instructor
-function askAboutUppercase(){
-  allowUppercase = confirm("Are upper case characters allowed?");  
-  console.log(allowUppercase);
-}
 
 // Repeat for other criteria; for the number of characters, use a prompt statement. Google it. NOTE: prompt statements think any value you provide is a string. You will need to convert it to a number.
-
-//Lower case characters
-function askAboutLowerCase(){
-  allowLowerCase = confirm("Are lower case characters allowed?");
-  console.log(allowLowerCase);
-}
-
-//Numbers allowed
-function askAboutNumbers(){
-  allowNumbers = confirm("Are numbers allowed?");
-  console.log(allowNumbers);
-}
-
-//Password character count
-// at least 8 no more than 128
-function askAboutCharacterCount(){
- 
-//  var field = passwordCharacterCount; 
- var mnlen = 7;
- var mxlen = 129;
-
- while (true){
- passwordCharacterCount = window.prompt("How many characters would you like to use? Please use between 8-128 characters.");
- parseInt(passwordCharacterCount)
-  if(passwordCharacterCount<mnlen || passwordCharacterCount> mxlen)
-   { 
-     alert("Please input a password that is between" + mnlen + " and " + mxlen + " characters.");
-   }
-   else
-   { 
-     return passwordCharacterCount;
-   }
-  }  
-
-
-
-
-
-
-
-
-//  if(field.length<mnlen || field.length> mxlen)
-//  { 
-//    alert("Please input a password that is between" + mnlen + " and " + mxlen + " characters.");
-//    return false;
-//  }
-//  else
-//  { 
-//    return true;
-//  }
-}
-//how do i set min and max char count though??? ^^
-
-
-
-
-
-
-
-
-
 
 
 // Once all the criteria are determined, this function will generate the password. You can create other functions also if you need them.
 function generatePassword(){
-  var finalResult = "";
-  
+    var finalResult = "";
+    var characterTypes = [];
 
-  // HINT: Remember that a for-loop can iterate from a starting number to a ending number, such as the number of characters in a password.
+    // Provided by instructor
+      function askAboutUppercase(){
+        allowUppercase = confirm("Are upper case characters allowed?");  
+        if(askAboutUppercase){
+          characterTypes.push(uppercaseChars.join)
+        }
+        // characterTypes(allowUppercase);
+      }
 
-  // HINT: You may want to look into merging arrays together
+      //ask for lower case characters
+      function askAboutLowerCase(){
+        allowLowerCase = confirm("Are lower case characters allowed?");
+        if(askAboutLowerCase){
+          characterTypes.push(lowercaseChars.join)
+        }
+        // console.log(allowLowerCase);
+      }
+
+      //ask for numbers
+      function askAboutNumbers(){
+        allowNumbers = confirm("Are numbers allowed?");
+        if(askAboutNumbers){
+         characterTypes.push(number.join)
+       }
+        // console.log(allowNumbers);
+      }
+
+      
+
+      //Password character count
+      // at least 8 no more than 128
+      function askAboutCharacterCount(){ 
+      var mnlen = 7;
+      var mxlen = 129;
+
+      while (true){
+      passwordCharacterCount = window.prompt("How many characters would you like to use? Please use between 8-128 characters.");
+      parseInt(passwordCharacterCount)
+        if(passwordCharacterCount<mnlen || passwordCharacterCount> mxlen)
+        { 
+          alert("Please input a password that is between 8 and 128 characters.");
+        }else{ 
+          return passwordCharacterCount;
+        }
+      }  
+    }  
+    
+    const newArrayOfCharacters = characterTypes.toString();
+
+    for (var i=1;i<=passwordCharacterCount; i++){
+      var randomIndex = Math.floor(Math.random() * newArrayOfCharacters.length)
+      finalResult += newArrayOfCharacters[randomIndex];
+    }
+
+    askAboutUppercase();
+    askAboutLowerCase();
+    askAboutNumbers();
+    askAboutCharacterCount();  
+    
+    // HINT: You may want to look into merging arrays together
+    return finalResult;
+  }
 
 
-  return finalResult;
-}
 
 // Write password to the #password input
 function writePassword() {
-
-  // ask the questions first
-  askAboutUppercase();
-  askAboutLowerCase();
-  askAboutNumbers();
-  askAboutCharacterCount();
-
-
-
 
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
